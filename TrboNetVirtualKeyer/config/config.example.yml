@@ -1,0 +1,5 @@
+isVoxEnabled: true # VOX on or off
+voxThreshold: 0.1 # VOX threashold
+voxHangTime: 3000 # VOX hang time before COR state is changed
+debounceTime: 500 # COR Debounce
+selectedDeviceIndex: 0 # Audio device index
