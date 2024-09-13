@@ -2,10 +2,11 @@
 {
     public class Config
     {
-        public bool IsVoxEnabled { get; set; } = true;
-        public float VoxThreshold { get; set; } = 0.1f;
-        public int VoxHangTime { get; set; } = 3000;
-        public int DebounceTime { get; set; } = 500;
-        public int SelectedDeviceIndex { get; set; } = 0;
+        public bool IsVoxEnabled { get; set; }
+        public float VoxThreshold { get; set; }
+        public int VoxHangTime { get; set; }
+        public int DebounceTime { get; set; }
+        public int SelectedDeviceIndex { get; set; }
+        public string? ComPort { get; set; }
     }
 }

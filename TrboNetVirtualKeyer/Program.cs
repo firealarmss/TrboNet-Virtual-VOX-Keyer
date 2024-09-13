@@ -5,6 +5,7 @@ using NAudio.Wave;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using System.IO;
+using System.Diagnostics;
 
 #nullable disable
 
@@ -12,7 +13,7 @@ namespace TrboNetVirtualKeyer
 {
     internal class Program
     {
-        static SerialPort serialPort = new SerialPort("COM2", 9600);
+        static string comPort = "COM1";
         static bool isVoxEnabled = true;
         static float voxThreshold = 0.1f;
         static float voxHysteresis = 0.02f;
@@ -24,6 +25,7 @@ namespace TrboNetVirtualKeyer
         static bool isWithinHangTime = false;
 
         static Config config;
+        static SerialPort serialPort;
 
         static void Main(string[] args)
         {
@@ -230,6 +232,7 @@ namespace TrboNetVirtualKeyer
             if (!File.Exists(configFilePath))
             {
                 Console.WriteLine($"Configuration file {configFilePath} not found!");
+                serialPort = new SerialPort(comPort, 9600);
                 return;
             }
 
@@ -244,12 +247,13 @@ namespace TrboNetVirtualKeyer
                     config = deserializer.Deserialize<Config>(reader);
                 }
 
-                // Apply the configuration settings
                 isVoxEnabled = config.IsVoxEnabled;
                 voxThreshold = config.VoxThreshold;
                 voxHangTime = config.VoxHangTime;
                 debounceTime = config.DebounceTime;
                 selectedDeviceIndex = config.SelectedDeviceIndex;
+                comPort = config.ComPort;
+                serialPort = new SerialPort(comPort, 9600);
 
                 Console.WriteLine("Configuration loaded successfully.");
             }
